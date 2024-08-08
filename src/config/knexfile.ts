@@ -2,6 +2,9 @@ import dotenv from 'dotenv';
 import { knex, Knex } from 'knex';
 
 dotenv.config();
+
+const SECRET_KEY = process.env.SECRET_KEY;
+
 const connect =  async() => {
 
   const data: Knex.Config = {
@@ -36,4 +39,4 @@ const connect =  async() => {
 }
 const Schema = connect ();
 
-export default Schema;
+export { Schema, SECRET_KEY };

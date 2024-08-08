@@ -1,164 +1,185 @@
 import { NextFunction, Request, Response } from "express";
-import Schema from "../config/knexfile";
+import { Schema, 
+         SECRET_KEY 
+      } from "../config/knexfile";
 import jwt from 'jsonwebtoken';
 
 
-const handleauth = ( user: string ) => {
-  const token = jwt.sign({ PhoneNumber: user }, 'secret');
-  return token;
+const handleAuth = (user: string) => {
+  if (!SECRET_KEY) {
+    throw new Error("SECRET_KEY is undefined");
+  }
+    return jwt.sign({ PhoneNumber: user }, SECRET_KEY);
 };
-export const requireauth = (req: Request, res: Response, next: NextFunction) => {
+
+export const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies[req.params.AccountNo];
-  if (!token){
-    return res.send ("Unauthenticated user")
-  };
-  jwt.verify(token, 'secret', (err: any, decode: any) => {
-     if (err) {
-       return res.status(401).json({
-          successful: false,
-          message: "Token verification failed",
-          error: err.message,
-        });
-      }else {
-        next ()
-        console.log(decode)
-      } 
+  if (!token) {
+    return res.status(401).json({ message: "Unauthenticated user" });
+  }
 
+  if (!SECRET_KEY) {
+    throw new Error("SECRET_KEY is undefined");
+  }
+
+  jwt.verify(token, SECRET_KEY, (err: any, decode: any) => {
+    if (err) {
+      return res.status(401).json({
+        successful: false,
+        message: "Token verification failed",
+        error: err.message,
+      });
+    }
+    console.log(decode);
+    next();
   });
-  
 };
-
 
 export const createUser = async (req: Request, res: Response) => {
   try {
+    const { PhoneNumber, Firstname, Lastname, Username, Password } = req.body;
+    const AccountNo = PhoneNumber.substring(1);
 
-    const Numb:string = req.body.PhoneNumber
-    let x = Numb.split("")
-    let j = "";
-    for (let i = 1; i < x.length; i++){
-        j = j+x [i]
-    };
-    const [userId] =  await (await Schema)("users").insert({
-      Firstname: req.body.Firstname,
-      Lastname: req.body.Lastname,
-      Username: req.body.Username, 
-      PhoneNumber: req.body.PhoneNumber,
-      Password: req.body.Password,
-      AccountNo: j,
-      Balance: 0.00
+    const [userId] = await (await Schema)("users").insert({
+      Firstname,
+      Lastname,
+      Username,
+      PhoneNumber,
+      Password,
+      AccountNo,
+      Balance: 0.00,
     });
 
     const newUser = await (await Schema)("users").where('Id', userId).first();
-    //res.cookie("jwt", handleauth(newUser.PhoneNumber))
+
     res.status(201).json({
       successful: true,
       message: "Account created successfully",
       data: newUser,
-      });
-    
+    });
   } catch (error: any) {
-
-    res.status(500).send (error.message)
- }
+    res.status(500).send(error.message);
+  }
 };
 
-export const fundAccount = async (req: Request, res: Response )=>{
-  const owner = await (await Schema)("users").where('AccountNo', req.params.AccountNo).first(); 
-  const {Amount} = req.body;
+export const fundAccount = async (req: Request, res: Response) => {
+  try {
+    const { Amount } = req.body;
+    const owner = await getUserByAccountNo(req.params.AccountNo);
 
-  if (!Amount || isNaN(Amount)) {
-    return res.status(400).json({
-      successful: false,
-      message: "Amount is required and must be a number",
-    });
-  }
-
-  let upgrade = parseInt(owner.Balance) + parseFloat(Amount);
-  await (await Schema)("users").update({"Balance": upgrade}).where({"AccountNo": req.params.AccountNo});
-
-  res.status(201).json({
-    successful: true,
-    message: "Account funded successfully",
-    });
     if (!owner) {
-      return res.status(404).json({
+      return res.status(404).json({ successful: false, message: "User not found" });
+    }
+
+    if (!Amount || isNaN(Amount)) {
+      return res.status(400).json({
         successful: false,
-        message: "User not found",
+        message: "Amount is required and must be a number",
       });
-   }
+    }
+
+    const updatedBalance = parseInt(owner.Balance) + parseFloat(Amount);
+    await (await Schema)("users").update({ Balance: updatedBalance }).where({ AccountNo: req.params.AccountNo });
+
+    res.status(201).json({
+      successful: true,
+      message: "Account funded successfully",
+    });
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
 };
 
-export const transferfunds = async (req: Request, res: Response )=>{
-  const sender = await (await Schema)("users").where('AccountNo', req.params.AccountNo).first();
-  const {Amount, to} = req.body
+export const transferFunds = async (req: Request, res: Response) => {
+  try {
+    const { Amount, to } = req.body;
+    const sender = await getUserByAccountNo(req.params.AccountNo);
+    const recipient = await getUserByAccountNo(to);
 
-  if (sender.Balance < Amount){
-    return res.send ("Insufficient Fund")
-  } 
-  const recipient = await (await Schema)("users").where('AccountNo', to).first();
-  if (!recipient){
-    return res.send ("Invalid Account Number")
+    if (!sender || !recipient) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (sender.Balance < Amount) {
+      return res.send("Insufficient Funds");
+    }
+
+    if (sender.AccountNo === recipient.AccountNo) {
+      return res.send("Cannot transfer to own account");
+    }
+
+    await updateBalance(sender.AccountNo, -parseFloat(Amount));
+    await updateBalance(recipient.AccountNo, parseFloat(Amount));
+
+    res.send("Transfer Successful");
+  } catch (error: any) {
+    res.status(500).send(error.message);
   }
-  if (sender.AccountNo == recipient.AccountNo){
-    return res.send ("Cannot transfer to own account")
-  }
-  let upgrade = parseInt(recipient.Balance) + parseFloat(Amount)
-  await (await Schema)("users").update({"Balance": upgrade }).where({"AccountNo": to}
-  );
-  let loss = parseInt(sender.Balance) - parseFloat(Amount)
-  await (await Schema)("users").update({"Balance": loss }).where({"AccountNo": req.params.AccountNo});
-  res.send ("Transfer Successful")
 };
 
-export const withdrawal = async (req: Request, res: Response )=>{
-  const holder = await (await Schema)("users").where('AccountNo', req.params.AccountNo).first(); 
-  const {Amount} = req.body;
+export const withdrawal = async (req: Request, res: Response) => {
+  try {
+    const { Amount } = req.body;
+    const holder = await getUserByAccountNo(req.params.AccountNo);
 
-  if (holder.Balance < Amount){
-   return res.send ("Insufficient Fund")
-  }
-
-  if (!Amount || isNaN(Amount)) {
-    return res.status(400).json({
-      successful: false,
-      message: "Amount is required and must be a number",
-    });
-  }
-
-  let upgrade = parseInt(holder.Balance) - parseFloat(Amount);
-  await (await Schema)("users").update({"Balance": upgrade}).where({"AccountNo": req.params.AccountNo});
-  const num = await (await Schema)("users").where('AccountNo', req.params.AccountNo).first();
-  res.status(201).json({
-    successful: true,
-    message: "Withdrawal successfully",
-    data: num,
-    });
     if (!holder) {
-      return res.status(404).json({
-        successful: false,
-        message: "Withdrawal not successful",
-      });
-   }
-};
+      return res.status(404).json({ message: "User not found" });
+    }
 
+    if (holder.Balance < Amount) {
+      return res.send("Insufficient Funds");
+    }
+
+    if (!Amount || isNaN(Amount)) {
+      return res.status(400).json({
+        successful: false,
+        message: "Amount is required and must be a number",
+      });
+    }
+
+    await updateBalance(holder.AccountNo, -parseFloat(Amount));
+
+    const updatedUser = await getUserByAccountNo(req.params.AccountNo);
+    res.status(201).json({
+      successful: true,
+      message: "Withdrawal successful",
+      data: updatedUser,
+    });
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+};
 
 export const login = async (req: Request, res: Response) => {
   try {
-  
-    const {Username, Password} = req.body
+    const { Username, Password } = req.body;
+    const user = await (await Schema)("users").where({ Username, Password }).first();
 
-    const User = await (await Schema)("users").where('Password', Password).first();
-    if (Username != User.Username && Password != User.Password){
-      return res.send ("Invalid Username or Password")
+    if (!user) {
+      return res.status(401).json({
+        successful: false,
+        message: "Invalid Username or Password",
+      });
     }
-    res.cookie(User.AccountNo, handleauth(User.PhoneNumber))
+
+    const token = handleAuth(user.PhoneNumber);
+    res.cookie(user.AccountNo, token);
+
     res.status(201).json({
       successful: true,
       message: "Login successful",
-      });
-    
+    });
   } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+};
 
-    res.status(500).send (error.message)
- }
+const getUserByAccountNo = async (AccountNo: string) => {
+  return await (await Schema)("users").where({ AccountNo }).first();
+};
+
+const updateBalance = async (AccountNo: string, Amount: number) => {
+  const user = await getUserByAccountNo(AccountNo);
+  const updatedBalance = parseInt(user.Balance) + Amount;
+  await (await Schema)("users").update({ Balance: updatedBalance }).where({ AccountNo });
 };
