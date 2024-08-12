@@ -4,6 +4,7 @@ import { knex, Knex } from 'knex';
 dotenv.config();
 
 const SECRET_KEY = process.env.SECRET_KEY;
+const ADJUTOR_API_TOKEN = process.env.ADJUTOR_API_TOKEN
 
 const connect =  async() => {
 
@@ -39,4 +40,4 @@ const connect =  async() => {
 }
 const Schema = connect ();
 
-export { Schema, SECRET_KEY };
+export { Schema, SECRET_KEY, ADJUTOR_API_TOKEN };

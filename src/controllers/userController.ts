@@ -1,8 +1,11 @@
+import axios from 'axios';
 import { NextFunction, Request, Response } from "express";
 import { Schema, 
-         SECRET_KEY 
+         SECRET_KEY,
+         ADJUTOR_API_TOKEN
       } from "../config/knexfile";
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 
 const handleAuth = (user: string) => {
@@ -35,17 +38,45 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
   });
 };
 
+const checkKarmaBlacklist = async (PhoneNumber: string): Promise<boolean> => {
+  try {
+    const response = await axios.get(
+      `https://adjutor.lendsqr.com/v2/verification/karma/${PhoneNumber}`,
+      {
+        headers: {
+          Authorization: `Bearer ${ADJUTOR_API_TOKEN}`,
+        },
+      }
+    );
+
+    // If the response contains valid karma data, assume the user is blacklisted
+    return response.data && response.data.karma_identity ? true : false;
+  } catch (error) {
+    console.error('Error checking Karma blacklist:', error.response?.data || error.message);
+    throw new Error('Could not verify blacklist status');
+  }
+};
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { PhoneNumber, Firstname, Lastname, Username, Password } = req.body;
     const AccountNo = PhoneNumber.substring(1);
-
+  
+    // Check if the PhoneNumber is in the Lendsqr Adjutor Karma blacklist
+    const isBlacklisted = await checkKarmaBlacklist(PhoneNumber);
+    if (isBlacklisted) {
+      return res.status(400).json({
+        successful: false,
+        message: "User is blacklisted and cannot be onboarded",
+      });
+    }
+    const hashedPassword = await bcrypt.hash(Password, 10);
     const [userId] = await (await Schema)("users").insert({
       Firstname,
       Lastname,
       Username,
       PhoneNumber,
-      Password,
+      Password: hashedPassword,
       AccountNo,
       Balance: 0.00,
     });
@@ -65,17 +96,16 @@ export const createUser = async (req: Request, res: Response) => {
 export const fundAccount = async (req: Request, res: Response) => {
   try {
     const { Amount } = req.body;
-    const owner = await getUserByAccountNo(req.params.AccountNo);
-
-    if (!owner) {
-      return res.status(404).json({ successful: false, message: "User not found" });
-    }
-
-    if (!Amount || isNaN(Amount)) {
+    if (!Amount || isNaN(Amount) || parseFloat(Amount) <= 0) {
       return res.status(400).json({
         successful: false,
-        message: "Amount is required and must be a number",
+        message: "Amount is required and must be a positive number",
       });
+    }
+
+    const owner = await getUserByAccountNo(req.params.AccountNo);
+    if (!owner) {
+      return res.status(404).json({ successful: false, message: "User not found" });
     }
 
     const updatedBalance = parseInt(owner.Balance) + parseFloat(Amount);
@@ -90,9 +120,17 @@ export const fundAccount = async (req: Request, res: Response) => {
   }
 };
 
+
 export const transferFunds = async (req: Request, res: Response) => {
   try {
     const { Amount, to } = req.body;
+    if (!Amount || isNaN(Amount) || parseFloat(Amount) <= 0) {
+      return res.status(400).json({
+        successful: false,
+        message: "Amount is required and must be a positive number",
+      });
+    }
+
     const sender = await getUserByAccountNo(req.params.AccountNo);
     const recipient = await getUserByAccountNo(to);
 
@@ -100,7 +138,7 @@ export const transferFunds = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (sender.Balance < Amount) {
+    if (sender.Balance < parseFloat(Amount)) {
       return res.send("Insufficient Funds");
     }
 
@@ -117,24 +155,25 @@ export const transferFunds = async (req: Request, res: Response) => {
   }
 };
 
+
 export const withdrawal = async (req: Request, res: Response) => {
   try {
     const { Amount } = req.body;
+    if (!Amount || isNaN(Amount) || parseFloat(Amount) <= 0) {
+      return res.status(400).json({
+        successful: false,
+        message: "Amount is required and must be a positive number",
+      });
+    }
+
     const holder = await getUserByAccountNo(req.params.AccountNo);
 
     if (!holder) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (holder.Balance < Amount) {
+    if (parseFloat(Amount) > parseFloat(holder.Balance)) {
       return res.send("Insufficient Funds");
-    }
-
-    if (!Amount || isNaN(Amount)) {
-      return res.status(400).json({
-        successful: false,
-        message: "Amount is required and must be a number",
-      });
     }
 
     await updateBalance(holder.AccountNo, -parseFloat(Amount));
@@ -149,6 +188,7 @@ export const withdrawal = async (req: Request, res: Response) => {
     res.status(500).send(error.message);
   }
 };
+
 
 export const login = async (req: Request, res: Response) => {
   try {
