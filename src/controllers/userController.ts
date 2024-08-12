@@ -49,13 +49,18 @@ const checkKarmaBlacklist = async (PhoneNumber: string): Promise<boolean> => {
       }
     );
 
-    // If the response contains valid karma data, assume the user is blacklisted
     return response.data && response.data.karma_identity ? true : false;
-  } catch (error) {
-    console.error('Error checking Karma blacklist:', error.response?.data || error.message);
+  } catch (error: any) {
+    if (error.response && error.response.data) {
+      console.error('Error checking Karma blacklist:', error.response.data);
+      if (error.response.data.message === 'Identity not found in karma') {
+        return false;
+      }
+    }
     throw new Error('Could not verify blacklist status');
   }
 };
+
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -193,22 +198,20 @@ export const withdrawal = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { Username, Password } = req.body;
-    const user = await (await Schema)("users").where({ Username, Password }).first();
-
-    if (!user) {
-      return res.status(401).json({
+    const user = await (await Schema)("users").where({ Username }).first();
+    if (user && await bcrypt.compare(Password, user.Password)) {
+      const token = handleAuth(user.PhoneNumber);
+      res.cookie(user.AccountNo, token);
+      res.status(201).json({
+        successful: true,
+        message: "Login successful",
+      });
+    } else {
+      res.status(401).json({
         successful: false,
         message: "Invalid Username or Password",
       });
     }
-
-    const token = handleAuth(user.PhoneNumber);
-    res.cookie(user.AccountNo, token);
-
-    res.status(201).json({
-      successful: true,
-      message: "Login successful",
-    });
   } catch (error: any) {
     res.status(500).send(error.message);
   }
