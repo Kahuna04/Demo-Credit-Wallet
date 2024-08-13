@@ -15,7 +15,7 @@ app.get('/protected/:AccountNo', requireAuth, (req, res) => {
 
 describe('requireAuth Middleware', () => {
   it('should return 401 if no token is provided', async () => {
-    const response = await request(app).get('/protected/8012345678');
+    const response = await request(app).get('/protected/8070859502');
     expect(response.status).toBe(401);
     expect(response.body.message).toBe('Unauthenticated user');
   });
@@ -27,8 +27,8 @@ describe('requireAuth Middleware', () => {
     });
 
     const response = await request(app)
-      .get('/protected/8012345678')
-      .set('Cookie', [`8012345678=${token}`]);
+      .get('/protected/8070859502')
+      .set('Cookie', [`8070859502=${token}`]);
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe('Token verification failed');
@@ -37,12 +37,12 @@ describe('requireAuth Middleware', () => {
   it('should grant access if token is valid', async () => {
     const token = 'valid-token';
     (jwt.verify as jest.Mock).mockImplementation((_, __, cb) => {
-      cb(null, { PhoneNumber: '08012345678' });
+      cb(null, { PhoneNumber: '08070859502' });
     });
 
     const response = await request(app)
-      .get('/protected/8012345678')
-      .set('Cookie', [`8012345678=${token}`]);
+      .get('/protected/8070859502')
+      .set('Cookie', [`8070859502=${token}`]);
 
     expect(response.status).toBe(200);
     expect(response.text).toBe('Access granted');

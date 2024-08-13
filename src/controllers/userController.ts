@@ -18,7 +18,7 @@ const handleAuth = (user: string) => {
 export const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies[req.params.AccountNo];
   if (!token) {
-    return res.status(401).json({ message: "Unauthenticated user" });
+    return res.status(401).json({ successful: false, message: "Unauthenticated user" });
   }
 
   if (!SECRET_KEY) {
@@ -38,43 +38,10 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
   });
 };
 
-const checkKarmaBlacklist = async (PhoneNumber: string): Promise<boolean> => {
-  try {
-    const response = await axios.get(
-      `https://adjutor.lendsqr.com/v2/verification/karma/${PhoneNumber}`,
-      {
-        headers: {
-          Authorization: `Bearer ${ADJUTOR_API_TOKEN}`,
-        },
-      }
-    );
-
-    return response.data && response.data.karma_identity ? true : false;
-  } catch (error: any) {
-    if (error.response && error.response.data) {
-      console.error('Error checking Karma blacklist:', error.response.data);
-      if (error.response.data.message === 'Identity not found in karma') {
-        return false;
-      }
-    }
-    throw new Error('Could not verify blacklist status');
-  }
-};
-
-
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { PhoneNumber, Firstname, Lastname, Username, Password } = req.body;
-    const AccountNo = PhoneNumber.substring(1);
-  
-    // Check if the PhoneNumber is in the Lendsqr Adjutor Karma blacklist
-    const isBlacklisted = await checkKarmaBlacklist(PhoneNumber);
-    if (isBlacklisted) {
-      return res.status(400).json({
-        successful: false,
-        message: "User is blacklisted and cannot be onboarded",
-      });
-    }
+    const AccountNo = PhoneNumber.substring(4);
     const hashedPassword = await bcrypt.hash(Password, 10);
     const [userId] = await (await Schema)("users").insert({
       Firstname,
@@ -93,8 +60,13 @@ export const createUser = async (req: Request, res: Response) => {
       message: "Account created successfully",
       data: newUser,
     });
-  } catch (error: any) {
-    res.status(500).send(error.message);
+  } catch (error) {
+    const err = error as Error;
+    console.log("error", err.message)
+    res.status(500).json({
+      successful: false,
+      message: 'An Internal server error ocurred',
+    });
   }
 };
 
@@ -120,11 +92,15 @@ export const fundAccount = async (req: Request, res: Response) => {
       successful: true,
       message: "Account funded successfully",
     });
-  } catch (error: any) {
-    res.status(500).send(error.message);
+  } catch (error) {
+    const err = error as Error;
+    console.log("funderror", err.message)
+    res.status(500).json({
+      successful: false,
+      message: "An Internal server error ocurred",
+    });
   }
 };
-
 
 export const transferFunds = async (req: Request, res: Response) => {
   try {
@@ -140,26 +116,39 @@ export const transferFunds = async (req: Request, res: Response) => {
     const recipient = await getUserByAccountNo(to);
 
     if (!sender || !recipient) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ successful: false, message: "User not found" });
     }
 
     if (sender.Balance < parseFloat(Amount)) {
-      return res.send("Insufficient Funds");
+      return res.status(400).json({
+        successful: false,
+        message: "Insufficient balance",
+      });
     }
 
     if (sender.AccountNo === recipient.AccountNo) {
-      return res.send("Cannot transfer to own account");
+      return res.status(400).json({
+        successful: false,
+        message: "Cannot transfer to own account",
+      });
     }
 
     await updateBalance(sender.AccountNo, -parseFloat(Amount));
     await updateBalance(recipient.AccountNo, parseFloat(Amount));
 
-    res.send("Transfer Successful");
-  } catch (error: any) {
-    res.status(500).send(error.message);
+    res.status(200).json({
+      successful: true,
+      message: "Transfer successful",
+    });
+  } catch (error) {
+    const err = error as Error;
+    console.log("transfererror", err.message)
+    res.status(500).json({
+      successful: false,
+      message: 'An Internal server error occurred',
+    });
   }
 };
-
 
 export const withdrawal = async (req: Request, res: Response) => {
   try {
@@ -174,46 +163,76 @@ export const withdrawal = async (req: Request, res: Response) => {
     const holder = await getUserByAccountNo(req.params.AccountNo);
 
     if (!holder) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ successful: false, message: "User not found" });
     }
 
     if (parseFloat(Amount) > parseFloat(holder.Balance)) {
-      return res.send("Insufficient Funds");
+      return res.status(400).json({
+        successful: false,
+        message: "Insufficient balance",
+      });
     }
 
     await updateBalance(holder.AccountNo, -parseFloat(Amount));
 
     const updatedUser = await getUserByAccountNo(req.params.AccountNo);
-    res.status(201).json({
+    res.status(200).json({
       successful: true,
       message: "Withdrawal successful",
       data: updatedUser,
     });
-  } catch (error: any) {
-    res.status(500).send(error.message);
+  } catch (error) {
+    const err = error as Error;
+    console.log("withdrawalerror", err.message)
+    res.status(500).json({
+      successful: false,
+      message: 'An Internal server error occurred',
+    });
   }
 };
-
 
 export const login = async (req: Request, res: Response) => {
   try {
     const { Username, Password } = req.body;
-    const user = await (await Schema)("users").where({ Username }).first();
-    if (user && await bcrypt.compare(Password, user.Password)) {
-      const token = handleAuth(user.PhoneNumber);
-      res.cookie(user.AccountNo, token);
-      res.status(201).json({
-        successful: true,
-        message: "Login successful",
+    if (!Username || !Password) {
+      return res.status(400).json({
+        successful: false,
+        message: "Username and Password are required",
       });
-    } else {
-      res.status(401).json({
+    }
+    const user = await (await Schema)("users").where({ Username }).first();
+    if (!user) {
+      return res.status(401).json({
         successful: false,
         message: "Invalid Username or Password",
       });
     }
-  } catch (error: any) {
-    res.status(500).send(error.message);
+    const isPasswordMatch = await bcrypt.compare(Password, user.Password);
+    if (!isPasswordMatch) {
+      return res.status(401).json({
+        successful: false,
+        message: "Invalid Username or Password",
+      });
+    }
+    const token = handleAuth(user.PhoneNumber);
+    if (!token) {
+      return res.status(500).json({
+        successful: false,
+        message: "Failed to generate authentication token",
+      });
+    }
+    res.cookie(user.AccountNo, token);
+    return res.status(200).json({
+      successful: true,
+      message: "Login successful",
+    });
+  } catch (error) {
+    const err = error as Error;
+    console.log("Login error:", err.message);
+    return res.status(500).json({
+      successful: false,
+      message: "An internal server error occurred",
+    });
   }
 };
 

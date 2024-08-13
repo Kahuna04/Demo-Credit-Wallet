@@ -1,10 +1,10 @@
 import request from 'supertest';
 import express from 'express';
-import axios from 'axios';
 import { createUser } from '../../src/controllers/userController';
 import { Schema } from '../../src/config/knexfile';
 
-// Mock the Schema instance
+let schemaInstance: any;
+
 jest.mock('../../src/config/knexfile', () => ({
   Schema: {
     insert: jest.fn(),
@@ -12,10 +12,13 @@ jest.mock('../../src/config/knexfile', () => ({
   },
 }));
 
-// Mock axios
-jest.mock('axios');
-
-let schemaInstance: any;
+// jest.mock('axios', () => ({
+//   get: jest.fn(() =>
+//     Promise.resolve({
+//       data: { karma_identity: true },
+//     })
+//   ),
+// }));
 
 beforeAll(async () => {
   schemaInstance = Schema;
@@ -33,7 +36,7 @@ describe('POST /create-user', () => {
       Firstname: 'Dami',
       Lastname: 'Lare',
       Username: 'kahuna',
-      PhoneNumber: '08012345678',
+      PhoneNumber: '+2348070859502',
       Balance: 0.0,
     });
 
@@ -43,40 +46,27 @@ describe('POST /create-user', () => {
         Firstname: 'Dami',
         Lastname: 'Lare',
         Username: 'kahuna',
-        PhoneNumber: '08012345678',
+        PhoneNumber: '+2348070859502',
         Password: 'password123',
       });
 
     expect(response.status).toBe(201);
-    expect(response.body.successful).toBe(true);
-    expect(response.body.message).toBe('Account created successfully');
-  });
-
-  it('should return 400 if user is blacklisted', async () => {
-    // Mock the karma API response to indicate the user is blacklisted
-    (axios.get as jest.Mock).mockResolvedValueOnce({
+    expect(response.body).toBe({
+      successful: true,
+      message: 'Account created successfully',
       data: {
-        karma_identity: true, 
-      },
-    });
-
-    const response = await request(app)
-      .post('/create-user')
-      .send({
+        Id: 1,
         Firstname: 'Dami',
         Lastname: 'Lare',
         Username: 'kahuna',
-        PhoneNumber: '08012345678',
-        Password: 'password123',
-      });
-
-    expect(response.status).toBe(400);
-    expect(response.body.successful).toBe(false);
-    expect(response.body.message).toBe('User is blacklisted and cannot be onboarded');
+        PhoneNumber: '+2348070859502',
+        Balance: 0.0,
+      },
+    });
   });
 
   it('should return 500 if an error occurs', async () => {
-    (schemaInstance.insert as jest.Mock).mockRejectedValue(new Error('Database error'));
+    (schemaInstance.insert as jest.Mock).mockRejectedValue(new Error('An Internal server error ocurred'));
 
     const response = await request(app)
       .post('/create-user')
@@ -84,10 +74,14 @@ describe('POST /create-user', () => {
         Firstname: 'Dami',
         Lastname: 'Lare',
         Username: 'kahuna',
-        PhoneNumber: '08012345678',
+        PhoneNumber: '+2348070859502',
         Password: 'password123',
       });
 
     expect(response.status).toBe(500);
+    expect(response.body).toStrictEqual({
+      successful: false,
+      message: 'An Internal server error ocurred',
+    });
   });
 });

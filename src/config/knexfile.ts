@@ -30,7 +30,7 @@ const connect =  async() => {
      table.string("Username");
      table.string("Password");
      table.string("AccountNo").checkRegex('[0-9]{10}');
-     table.string('PhoneNumber').checkRegex('[0-9]{11}');
+     table.string('PhoneNumber').checkRegex('\\+[0-9]{13}').notNullable();
      table.integer("Balance");
     });
   }

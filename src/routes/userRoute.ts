@@ -11,4 +11,3 @@ router.put('/transfer/:AccountNo', requireAuth, transferFunds)
 router.put('/withdraw/:AccountNo', requireAuth, withdrawal)
 
 export default router;
-  

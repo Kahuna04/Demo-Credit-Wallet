@@ -3,7 +3,7 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: './tsconfig.spec.json', // Moved from globals to here
+      tsconfig: './tsconfig.spec.json', 
     }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
@@ -12,15 +12,4 @@ module.exports = {
     'node_modules/(?!(@types|demo-wallet-app)/)'
   ],
 };
-
-  
-  // module.exports = {
-  //   preset: 'ts-jest',
-  //   testEnvironment: 'node',
-  //   globals: {
-  //     'ts-jest': {
-  //       tsconfig: 'tsconfig.json',
-  //     },
-  //   },
-  // };
   
