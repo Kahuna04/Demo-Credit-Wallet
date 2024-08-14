@@ -1,15 +1,6 @@
-// {
-//     "extends": "./tsconfig.json",
-//     "compilerOptions": {
-//       "outDir": "./dist",
-//       "module": "commonjs",
-//       "types": ["jest"]
-//     },
-//     "include": ["src/**/*.ts", "tests/**/*.ts"]
-//   }
-
-  {
+{
   "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./types"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
