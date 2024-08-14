@@ -15,6 +15,16 @@ export const createUser = async (req: Request, res: Response) => {
       Password
      } = req.body;
     logger.info("Creating user in createUser", { PhoneNumber, Username });
+
+    // Check if user already exists by username or phone number
+    const existingUser = await (await Schema)("users").where({ Username }).orWhere({ PhoneNumber }).first();
+    if (existingUser) {
+      return res.status(409).json({
+        successful: false,
+        message: "User already exists",
+      });
+    }    
+    
     const AccountNo = PhoneNumber.substring(4);
     const hashedPassword = await bcrypt.hash(Password, 10);
     const [userId] = await (await Schema)("users").insert({
@@ -36,7 +46,6 @@ export const createUser = async (req: Request, res: Response) => {
     });
   } catch (error) {
     const err = error as Error;
-    // console.log("error", err.message)
     res.status(500).json({
       successful: false,
       message: 'An Internal server error occurred',
@@ -79,8 +88,7 @@ export const login = async (req: Request, res: Response) => {
       message: "Login successful",
     });
   } catch (error) {
-    const err = error as Error;
-    console.log("Login error:", err.message);
+    const err = error as Error;;
     return res.status(500).json({
       successful: false,
       message: "An internal server error occurred",

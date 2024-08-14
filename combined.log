@@ -1,99 +1,25 @@
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"=2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"=2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"=2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"=2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"=2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"=2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
-{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
-{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
-{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
-{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
-{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
 {"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
 {"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
 {"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
 {"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
-{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
-{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
-{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
 {"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
 {"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
 {"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
 {"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
-{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
-{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
-{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
 {"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
 {"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
 {"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
 {"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
-{"level":"error","message":"transferFunds error: (intermediate value) is not a function","service":"user-service"}
-{"level":"error","message":"withdrawal error: (intermediate value) is not a function","service":"user-service"}
-{"level":"error","message":"withdrawal error: (intermediate value) is not a function","service":"user-service"}
-{"level":"warn","message":"Invalid Amount provided for withdrawal","service":"user-service"}
-{"level":"error","message":"transferFunds error: (intermediate value) is not a function","service":"user-service"}
-{"level":"warn","message":"Invalid Amount provided for transfer","service":"user-service"}
-{"level":"error","message":"withdrawal error: (intermediate value) is not a function","service":"user-service"}
-{"level":"error","message":"transferFunds error: (intermediate value) is not a function","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"error","message":"fundAccount error: (intermediate value) is not a function","service":"user-service"}
-{"level":"error","message":"fundAccount error: (intermediate value) is not a function","service":"user-service"}
-{"level":"warn","message":"Invalid Amount provided for funding","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"Account funded successfully for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"info","message":"Withdrawal successful for AccountNo: 1234567890","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"level":"info","message":"Account funded successfully for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"info","message":"Withdrawal successful for AccountNo: 1234567890","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"level":"info","message":"Account funded successfully for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"info","message":"Withdrawal successful for AccountNo: 1234567890","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"level":"info","message":"Account funded successfully for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"info","message":"Withdrawal successful for AccountNo: 1234567890","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"level":"info","message":"Account funded successfully for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"info","message":"Withdrawal successful for AccountNo: 1234567890","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}
-{"level":"info","message":"Account funded successfully for AccountNo: 1234567890","service":"user-service"}
-{"level":"warn","message":"User not found for AccountNo: 1234567890 or recipient: 0987654321","service":"user-service"}
-{"level":"info","message":"Withdrawal successful for AccountNo: 1234567890","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"PhoneNumber":"+2341234567890","Username":"johndoe","level":"info","message":"Creating user in createUser","service":"user-service"}
-{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2341234567890"}

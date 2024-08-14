@@ -1,71 +1,91 @@
 # Demo Credit Wallet Service
 
-### Project Overview:
-Demo Credit is a mobile lending app that requires wallet functionality to facilitate loan disbursement, repayment, and fund transfers between users. This MVP (Minimum Viable Product) of the wallet service will allow users to create accounts, fund their wallets, transfer funds to other users, and withdraw funds.
+## Overview
+Demo Credit Wallet Service is a wallet application that allows users to fund their accounts, transfer funds, and withdraw money. It includes features for user management, and authentication.
 
-### Tech Stack:
-- NodeJS (LTS version)
-- KnexJS ORM
-- MySQL database
-- TypeScript
+## Table of Contents
 
-### Features:
-#### User Account Management:
-- Users can create an account with basic information.
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Usage](#usage)
+- [E-R Diagram](#e-r-diagram)
+- [Folder](#folder)
 
-#### Wallet Funding:
-- Users can fund their wallet using various payment methods.
 
-#### Funds Transfer:
-- Users can transfer funds from their wallet to another user's wallet.
+## Features
 
-#### Withdrawal:
-- Users can withdraw funds from their wallet to an external account.
+- User Registration and Authentication
+- Account Funding
+- Funds Transfer
+- Withdrawal
+- Input validation and error handling
+- JWT-based Authentication
 
-### Implementation Details:
-#### Authentication:
-- A faux token-based authentication system will be implemented for basic security.
+## Technologies
 
-#### Database Design:
-- MySQL database will be used with appropriate tables for users, wallets, transactions, etc. An ER diagram is provided below for reference.
+- **Backend:** Node.js, Express.js, TypeScript
+- **Database:** MySQL, Knex.js ORM
+- **Testing:** Jest
+- **Other Libraries:** bcrypt, jsonwebtoken, body-parser
 
-#### API Design:
-- RESTful API endpoints will be designed using NodeJS and TypeScript.
+## Setup
 
-#### Transaction Management:
-- Proper transaction scoping will be used to ensure data consistency during fund transfers and withdrawals.
+### Requirements
 
-#### Unit Testing:
-- Unit tests will be implemented using Jest for both positive and negative scenarios.
+- Node.js
+- MySQL
+- npm
 
-#### Documentation:
-- Detailed README documentation will be provided, including setup instructions, API endpoints, and ER diagram.
+### Installation
+
+1. Clone the repository: `git clone <repository_url>`
+2. Install dependencies: `npm install`
+
+### Configuration
+
+1. Create a `.env` file in the root directory and add the necessary environment variables:
+
+### Running the Application
+
+To start the application, run:
+
+```bash
+npm start
+Use code with caution.
+Markdown
+Usage
+Register a New User
+Log in an Existing User
+Fund Account
+Transfer Funds
+Withdraw Funds
 
 ### ER Diagram:
 [ER Diagram](https://dbdesigner.page.link/npjPQzuGHGRfzXe56)
 
 ### Folder Structure:
 - src/
-  - controllers/
-    - userController.ts
-  - routes/
-    - userRour.ts
   - config/
     - knexfile.ts
-- server.ts
+    - logger.ts
+  - controllers/
+    - transactionController.ts
+    - userController.ts
+  - middlewares
+    - authMiddleware.ts
+  - routes/
+    - transactionRoute.ts
+    - userRoute.ts
+  - server.ts
+- tests\controllers
+  - transactionController.test.ts
+  - userController.test.ts
 - .env.example
 - .gitignore
+- jest.config.ts
 - package.json
+- README.md
+- tsconfig.spec.json
 
-
-
-
-### Development Workflow:
-1. Clone the repository.
-2. Install dependencies using `npm install`.
-3. Setup MySQL database and configure connection details in `src/config/knex.ts`.
-4. Start the server using `npm run dev`.
-5. Use provided API endpoints for testing.
-
-### Commit History:
-- Commit messages will follow a descriptive and concise format, summarizing the changes made in each commit.

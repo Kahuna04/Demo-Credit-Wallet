@@ -20,7 +20,6 @@ const connect =  async() => {
 
   };
   const k = knex(data)
-  console.log("connected to database")
 
   const hasUsersTable = await k.schema.withSchema('DemoCreditApp').hasTable('users');
   if (!hasUsersTable) {
