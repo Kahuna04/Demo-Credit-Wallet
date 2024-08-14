@@ -53,14 +53,16 @@ To start the application, run:
 
 ```bash
 npm start
-Use code with caution.
-Markdown
-Usage
-Register a New User
-Log in an Existing User
-Fund Account
-Transfer Funds
-Withdraw Funds
+```
+
+## Usage
+
+- Register a New User
+- Log in an Existing User
+- Fund Account
+- Transfer Funds
+- Withdraw Funds
+
 
 ### ER Diagram:
 [ER Diagram](https://dbdesigner.page.link/npjPQzuGHGRfzXe56)
