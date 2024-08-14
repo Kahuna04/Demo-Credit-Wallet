@@ -16,14 +16,15 @@ const connect =  async() => {
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      port: Number(process.env.DB_PORT)
     },
 
   };
   const k = knex(data)
 
-  const hasUsersTable = await k.schema.withSchema('DemoCreditApp').hasTable('users');
+  const hasUsersTable = await k.schema.withSchema('democreditapp').hasTable('users');
   if (!hasUsersTable) {
-   await k.schema.withSchema('DemoCreditApp').createTable('users', function (table) {
+   await k.schema.withSchema('democreditapp').createTable('users', function (table) {
      table.increments("Id").primary();
      table.string("Firstname");
      table.string("Lastname");
@@ -41,3 +42,4 @@ const connect =  async() => {
 const Schema = connect ();
 
 export { Schema, SECRET_KEY, ADJUTOR_API_TOKEN, ADJUTOR_API_URL };
+

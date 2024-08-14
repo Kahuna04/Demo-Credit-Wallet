@@ -23,3 +23,8 @@
 {"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
 {"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
