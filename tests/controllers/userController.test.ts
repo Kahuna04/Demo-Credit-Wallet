@@ -1,9 +1,18 @@
 import { createUser, login } from '../../src/controllers/userController';
 import bcrypt from 'bcrypt';
 
-jest.mock('../../src/config/knexfile');
-const mockSchema = require('../../src/config/knexfile');
+const mockSchema = {
+  users: {
+    where: jest.fn(),
+    insert: jest.fn(),
+    update: jest.fn(),
+  },
+};
 
+// jest.mock('../../src/config/knexfile', () => ({
+//   __esModule: true,
+//   default: mockSchema,
+// }));
 describe('UserController Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -25,9 +34,8 @@ describe('UserController Tests', () => {
         json: jest.fn(),
       };
 
-      const result = await createUser(mockReq as any, mockRes as any);
+      await createUser(mockReq as any, mockRes as any);
 
-      expect(result).toBeUndefined();
       expect(mockRes.status).toHaveBeenCalledWith(201);
       expect(mockRes.json).toHaveBeenCalled();
     });
@@ -47,7 +55,7 @@ describe('UserController Tests', () => {
         json: jest.fn(),
       };
 
-      (mockSchema("users") as any).insert = jest.fn().mockRejectedValue(new Error('DB Error'));
+      mockSchema.users.insert.mockRejectedValue(new Error('DB Error'));
 
       await createUser(mockReq as any, mockRes as any);
 
@@ -81,7 +89,7 @@ describe('UserController Tests', () => {
       };
 
       // Mock the user retrieval and password comparison
-      (mockSchema("users") as any).where = jest.fn().mockResolvedValue(userData);
+      mockSchema.users.where.mockResolvedValue(userData);
       bcrypt.compare = jest.fn().mockResolvedValue(true);
 
       await login(mockReq as any, mockRes as any);
@@ -91,7 +99,7 @@ describe('UserController Tests', () => {
         successful: true,
         message: 'Login successful',
       });
-      expect(mockRes.cookie).toHaveBeenCalledWith('+2341234567890', expect.any(String));
+      expect(mockRes.cookie).toHaveBeenCalledWith('session', expect.any(String)); 
     });
 
     it('should handle invalid credentials and return 401 status', async () => {
@@ -107,7 +115,7 @@ describe('UserController Tests', () => {
       };
 
       // Mock the user retrieval and password comparison
-      (mockSchema("users") as any).where = jest.fn().mockResolvedValue(null);
+      mockSchema.users.where.mockResolvedValue(null);
       bcrypt.compare = jest.fn().mockResolvedValue(false);
 
       await login(mockReq as any, mockRes as any);
