@@ -28,3 +28,11 @@
 {"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
 {"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dam","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859504","Username":"kahuna2","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859504","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"+2348070859504","Username":"kahuna2","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2348070859504"}
+{"decode":{"PhoneNumber":"+2348070859504","iat":1723659006},"level":"info","message":"Token verified successfully in requireAuth","service":"user-service"}
+{"level":"info","message":"Account funded successfully for AccountNo: 8070859504","service":"user-service"}
