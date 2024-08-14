@@ -24,8 +24,18 @@ const options: SwaggerOptions = {
         description: 'Production server',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          description: "Enter your JWT token",
+        },
+      },
+    },
   },
-  apis: ['./src/routes/*.ts'],
+    apis: ['./src/routes/*.ts'],
 };
 
 export default swaggerJsDoc(options);

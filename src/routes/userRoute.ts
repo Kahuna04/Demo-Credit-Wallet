@@ -135,6 +135,9 @@ router.post('/create-user', checkKarmaBlacklist, createUser);
  *                 message:
  *                   type: string
  *                   example: "Login successful"
+ *                 token:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *       400:
  *         description: Missing Username or Password
  *         content:

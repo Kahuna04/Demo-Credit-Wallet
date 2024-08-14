@@ -61,6 +61,7 @@ export const login = async (req: Request, res: Response) => {
         message: "Username and Password are required",
       });
     }
+
     const user = await (await Schema)("users").where({ Username }).first();
     if (!user) {
       return res.status(401).json({
@@ -68,6 +69,7 @@ export const login = async (req: Request, res: Response) => {
         message: "Invalid Username or Password",
       });
     }
+
     const isPasswordMatch = await bcrypt.compare(Password, user.Password);
     if (!isPasswordMatch) {
       return res.status(401).json({
@@ -75,6 +77,7 @@ export const login = async (req: Request, res: Response) => {
         message: "Invalid Username or Password",
       });
     }
+
     const token = handleAuth(user.PhoneNumber);
     if (!token) {
       return res.status(500).json({
@@ -82,13 +85,15 @@ export const login = async (req: Request, res: Response) => {
         message: "Failed to generate authentication token",
       });
     }
-    res.cookie(user.AccountNo, token);
+
+    // Set token in a cookie (optional)
+    res.cookie("token", token, { httpOnly: true });  // Optional: Set HttpOnly flag for security
     return res.status(200).json({
       successful: true,
       message: "Login successful",
+      token,
     });
   } catch (error) {
-    const err = error as Error;;
     return res.status(500).json({
       successful: false,
       message: "An internal server error occurred",
