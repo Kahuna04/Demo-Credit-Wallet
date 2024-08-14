@@ -1,6 +1,6 @@
 import express from "express";
 import userRoutes from "./routes/userRoute";
-import transactionRoutes from "./routes/transactionRoute"
+import transactionRoutes from "./routes/transactionRoute";
 import cookieParser from "cookie-parser";
 import swaggerUi from 'swagger-ui-express';
 import specs from "../swaggerConfig";
