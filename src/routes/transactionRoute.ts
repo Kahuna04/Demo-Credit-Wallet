@@ -26,7 +26,7 @@ const router = express.Router();
  *             properties:
  *               Amount:
  *                 type: number
- *                 description: The amount to fund the account with
+ *                 description: The amount to fund the account with (between 5 and 2,000,000)
  *                 example: 100.00
  *     responses:
  *       201:
@@ -54,7 +54,7 @@ const router = express.Router();
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Amount is required and must be a positive number"
+ *                   example: "Amount is required and must be a positive number between 5 and 2,000,000"
  *       404:
  *         description: User not found
  *         content:
@@ -106,7 +106,7 @@ router.put('/fund/:AccountNo', requireAuth, fundAccount);
  *             properties:
  *               Amount:
  *                 type: number
- *                 description: The amount to transfer
+ *                 description: The amount to transfer (between 5 and 2,000,000)
  *                 example: 100.00
  *               to:
  *                 type: string
@@ -138,7 +138,7 @@ router.put('/fund/:AccountNo', requireAuth, fundAccount);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Amount is required and must be a positive number, Insufficient balance, Cannot transfer to own account"
+ *                   example: "Amount is required and must be a positive number between 5 and 2,000,000, Insufficient balance, Cannot transfer to own account"
  *       404:
  *         description: Sender or recipient not found
  *         content:
@@ -190,7 +190,7 @@ router.put('/transfer/:AccountNo', requireAuth, transferFunds);
  *             properties:
  *               Amount:
  *                 type: number
- *                 description: The amount to withdraw
+ *                 description: The amount to withdraw (between 5 and 2,000,000)
  *                 example: 100
  *     responses:
  *       200:
@@ -227,7 +227,7 @@ router.put('/transfer/:AccountNo', requireAuth, transferFunds);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Amount is required and must be a positive number"
+ *                   example: "Amount is required and must be a positive number between 5 and 2,000,000"
  *       404:
  *         description: User not found
  *         content:

@@ -42,3 +42,15 @@
 {"PhoneNumber":"+2348070859509","Username":"Avatar","level":"info","message":"Creating user in createUser","service":"user-service"}
 {"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
 {"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2348070859509"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password123","PhoneNumber":"+2341234567890","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2341234567890","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"+2341234567890","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"level":"info","message":"JWT generated in handleAuth","service":"user-service","user":"+2348070859502"}
+{"decode":{"PhoneNumber":"+2348070859502","iat":1723671050},"level":"info","message":"Token verified successfully in requireAuth","service":"user-service"}
+{"level":"warn","message":"Amount provided is out of range: 1","service":"user-service"}
+{"decode":{"PhoneNumber":"+2348070859502","iat":1723671050},"level":"info","message":"Token verified successfully in requireAuth","service":"user-service"}
+{"level":"warn","message":"Amount provided is out of range: 2000001","service":"user-service"}
+{"decode":{"PhoneNumber":"+2348070859502","iat":1723671050},"level":"info","message":"Token verified successfully in requireAuth","service":"user-service"}
+{"level":"info","message":"Account funded successfully for AccountNo: 8070859502","service":"user-service"}
