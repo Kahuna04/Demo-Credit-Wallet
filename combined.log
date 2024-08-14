@@ -1,0 +1,53 @@
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Body before checkKarmaBlacklist in createUser:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"level":"info","message":"authMiddleware.checkKarmaBlacklist(): Function Entry","service":"user-service"}
+{"Firstname":"Dami","Lastname":"Lare","Password":"password1","PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Request body in checkKarmaBlacklist:","service":"user-service"}
+{"PhoneNumber":"+2348070859502","level":"info","message":"User not blacklisted in checkKarmaBlacklist","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"info","message":"checkKarmaBlacklist(): Function Exit","service":"user-service"}
+{"level":"error","message":"transferFunds error: (intermediate value) is not a function","service":"user-service"}
+{"level":"error","message":"withdrawal error: (intermediate value) is not a function","service":"user-service"}
+{"level":"error","message":"withdrawal error: (intermediate value) is not a function","service":"user-service"}
+{"level":"warn","message":"Invalid Amount provided for withdrawal","service":"user-service"}
+{"level":"error","message":"transferFunds error: (intermediate value) is not a function","service":"user-service"}
+{"level":"warn","message":"Invalid Amount provided for transfer","service":"user-service"}
+{"level":"error","message":"withdrawal error: (intermediate value) is not a function","service":"user-service"}
+{"level":"error","message":"transferFunds error: (intermediate value) is not a function","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"PhoneNumber":"+2348070859502","Username":"kahuna","level":"info","message":"Creating user in createUser","service":"user-service"}
+{"level":"error","message":"fundAccount error: (intermediate value) is not a function","service":"user-service"}
+{"level":"error","message":"fundAccount error: (intermediate value) is not a function","service":"user-service"}
+{"level":"warn","message":"Invalid Amount provided for funding","service":"user-service"}
