@@ -10,6 +10,7 @@ Demo Credit Wallet Service is a wallet application that allows users to fund the
 - [Technologies](#technologies)
 - [Setup](#setup)
 - [Usage](#usage)
+- [Documentation](#documentation)
 - [E-R Diagram](#e-r-diagram)
 - [Folder](#folder)
 
@@ -63,6 +64,13 @@ npm start
 - Transfer Funds
 - Withdraw Funds
 
+### Documentation
+
+Detailed API documentation is available and accessible via Swagger UI. To view documentation, click:
+
+```bash
+http://localhost:3000/docs
+```
 
 ### ER Diagram:
 [ER Diagram](https://dbdesigner.page.link/npjPQzuGHGRfzXe56)

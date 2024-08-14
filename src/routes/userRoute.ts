@@ -18,21 +18,26 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               PhoneNumber:
- *                 type: string
- *                 description: The phone number of the user "+2341234567890"
  *               Firstname:
  *                 type: string
  *                 description: The first name of the user
+ *                 example: Dami
  *               Lastname:
  *                 type: string
  *                 description: The last name of the user
+ *                 example: Lare
  *               Username:
  *                 type: string
  *                 description: The username of the user
+ *                 example: kahuna
+ *               PhoneNumber:
+ *                 type: string
+ *                 description: The phone number of the user
+ *                 example: "+2341234567890"
  *               Password:
  *                 type: string
  *                 description: The password of the user
+ *                 example: password123
  *     responses:
  *       201:
  *         description: User created successfully
