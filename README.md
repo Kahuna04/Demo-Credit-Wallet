@@ -73,7 +73,8 @@ http://localhost:3000/docs
 ```
 
 ### ER Diagram:
-[ER Diagram](https://dbdesigner.page.link/npjPQzuGHGRfzXe56)
+![Screenshot (60)](https://github.com/user-attachments/assets/166a769f-fc69-424f-9973-ef1887ac7579)
+
 
 ### Folder Structure:
 - src/
