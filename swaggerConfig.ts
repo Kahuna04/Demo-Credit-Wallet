@@ -20,7 +20,7 @@ const options: SwaggerOptions = {
         description: 'Local server', 
       },
       {
-        url: 'https://demo-credit-wallet-pp6p.onrender.com/api',
+        url: 'https://damilare-ogundele-lendsqr-be-test.onrender.com/api',
         description: 'Production server',
       },
     ],
