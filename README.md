@@ -41,7 +41,7 @@ Demo Credit Wallet Service is a wallet application that allows users to fund the
 
 ### Installation
 
-1. Clone the repository: `git clone <repository_url>`
+1. Clone the repository: `git clone <https://github.com/Kahuna04/Demo-Credit-Wallet.git>`
 2. Install dependencies: `npm install`
 
 ### Configuration
@@ -73,7 +73,8 @@ http://localhost:3000/docs
 ```
 
 ### ER Diagram:
-[ER Diagram](https://dbdesigner.page.link/npjPQzuGHGRfzXe56)
+![Screenshot (60)](https://github.com/user-attachments/assets/166a769f-fc69-424f-9973-ef1887ac7579)
+
 
 ### Folder Structure:
 - src/
